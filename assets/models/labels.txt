@@ -1,0 +1,2 @@
+0 Leaf-Hopper Damage 
+1 Healthy Leaf
