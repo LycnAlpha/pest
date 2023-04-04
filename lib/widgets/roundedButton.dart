@@ -61,7 +61,7 @@ class RoundedButton_Google_signin extends StatelessWidget {
         borderRadius: BorderRadius.circular(50),
         color: const Color(0xff64495c),
       ),
-      child: FlatButton(
+      child: TextButton(
         onPressed: onPressed,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,

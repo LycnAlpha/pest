@@ -95,7 +95,7 @@ class _UploadImageState extends State<UploadImage> {
 
   showAlertDialog(BuildContext context) {
     // Create button
-    Widget okButton = FlatButton(
+    Widget okButton = TextButton(
       child: Text("OK"),
       onPressed: () {
         Navigator.of(context).pop();

@@ -42,7 +42,7 @@ class _RealtimeDetectionState extends State<RealtimeDetection> {
     });
   }
 
-   runModel() async {
+  runModel() async {
     if (cameraImage != null) {
       var predictions = await Tflite.runModelOnFrame(
         bytesList: cameraImage!.planes.map((Plane) {
@@ -127,7 +127,7 @@ class _RealtimeDetectionState extends State<RealtimeDetection> {
 
   showAlertDialog(BuildContext context) {
     // Create button
-    Widget okButton = FlatButton(
+    Widget okButton = TextButton(
       child: Text("OK"),
       onPressed: () {
         Navigator.of(context).pop();
