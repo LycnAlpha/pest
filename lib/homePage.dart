@@ -16,7 +16,7 @@ class _HomepageState extends State<Homepage> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        BackgroundImage(image: 'assets/images/BG.jpg'),
+        const BackgroundImage(image: 'assets/images/BG.jpg'),
         Scaffold(
           backgroundColor: Colors.transparent,
           body: Column(
@@ -25,7 +25,7 @@ class _HomepageState extends State<Homepage> {
                 alignment: Alignment.center,
                 child: Column(
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       height: 75,
                     ),
                     Container(
@@ -39,23 +39,23 @@ class _HomepageState extends State<Homepage> {
                             fontFamily: 'Luicida'),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 100,
                     ),
                     RoundedButton(
                         buttonName: 'Realtime Pest Detection',
                         onPressed: () =>
                             Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => RealtimeDetection(),
+                              builder: (context) => const RealtimeDetection(),
                             ))),
-                    SizedBox(
+                    const SizedBox(
                       height: 50,
                     ),
                     RoundedButton(
                         buttonName: 'Upload Image',
                         onPressed: () =>
                             Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => UploadImage(),
+                              builder: (context) => const UploadImage(),
                             )))
                   ],
                 ),

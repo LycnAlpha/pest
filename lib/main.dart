@@ -2,9 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:pest_detection/welcome.dart';
 import 'package:camera/camera.dart';
 
+import 'db.dart';
+
 List<CameraDescription>? cameras;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  DatabaseHelper dbHelper = DatabaseHelper();
+  await dbHelper.initializeDatabase();
   cameras = await availableCameras();
   runApp(const MyApp());
 }
@@ -12,7 +16,6 @@ void main() async {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

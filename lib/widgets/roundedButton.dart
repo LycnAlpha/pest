@@ -19,12 +19,12 @@ class RoundedButton extends StatelessWidget {
       alignment: Alignment.center,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10.0),
-        child: Container(
+        child: SizedBox(
           width: MediaQuery.of(context).size.width - 50.0,
           height: 60,
           child: ElevatedButton(
               style: ElevatedButton.styleFrom(
-                  primary: Color.fromARGB(255, 15, 167, 9).withOpacity(0.6),
+                  backgroundColor: const Color.fromARGB(255, 15, 167, 9).withOpacity(0.6),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20))),
               onPressed: onPressed,
@@ -66,11 +66,11 @@ class RoundedButton_Google_signin extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            new Icon(
+            const Icon(
               FontAwesomeIcons.google,
               color: Colors.white,
             ),
-            SizedBox(
+            const SizedBox(
               width: 5,
             ),
             Text(

@@ -6,6 +6,8 @@ import 'package:tflite/tflite.dart';
 import 'package:pest_detection/main.dart';
 import 'package:pest_detection/widgets/roundedButton.dart';
 
+import 'db.dart';
+
 class RealtimeDetection extends StatefulWidget {
   const RealtimeDetection({Key? key}) : super(key: key);
 
@@ -14,11 +16,21 @@ class RealtimeDetection extends StatefulWidget {
 }
 
 class _RealtimeDetectionState extends State<RealtimeDetection> {
+  late DatabaseHelper dbHelper = DatabaseHelper();
   CameraImage? cameraImage;
   CameraController? cameraController;
   String output = "";
   int _imageCount = 0;
   bool isClicked = true;
+  String temp = "";
+
+  @override
+  void initState() {
+    super.initState();
+    loadModel();
+    loadCamera(0);
+    dbHelper.initializeDatabase();
+  }
 
   loadCamera(int c) {
     cameraController = CameraController(cameras![c], ResolutionPreset.medium);
@@ -30,9 +42,9 @@ class _RealtimeDetectionState extends State<RealtimeDetection> {
           cameraController!.startImageStream((ImageStream) async {
             cameraImage = ImageStream;
             _imageCount++;
-            if (_imageCount % 50 == 0) {
+            if (_imageCount % 30 == 0) {
               _imageCount = 0;
-              //runModel();
+              runModel();
             }
 
             //await Tflite.close();
@@ -58,11 +70,11 @@ class _RealtimeDetectionState extends State<RealtimeDetection> {
         asynch: true,
       );
 
-      predictions!.forEach((element) {
+      for (var element in predictions!) {
         setState(() {
           output = element['label'];
         });
-      });
+      }
     }
   }
 
@@ -76,23 +88,23 @@ class _RealtimeDetectionState extends State<RealtimeDetection> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        BackgroundImage(image: 'assets/images/BG.jpg'),
+        const BackgroundImage(image: 'assets/images/BG.jpg'),
         Scaffold(
           backgroundColor: Colors.transparent,
           appBar: AppBar(
-            title: Text('Realtime Pest Detection'),
+            title: const Text('Realtime Pest Detection'),
             backgroundColor: Colors.green,
             automaticallyImplyLeading: false,
-            leading: new IconButton(
+            leading: IconButton(
                 onPressed: () => Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (context) => Homepage())),
-                icon: new Icon(Icons.arrow_back, color: Colors.white)),
+                    .push(MaterialPageRoute(builder: (context) => const Homepage())),
+                icon: const Icon(Icons.arrow_back, color: Colors.white)),
           ),
           body: Column(
             children: [
               Padding(
-                padding: EdgeInsets.all(20),
-                child: Container(
+                padding: const EdgeInsets.all(20),
+                child: SizedBox(
                   height: MediaQuery.of(context).size.height * 0.7,
                   width: MediaQuery.of(context).size.width,
                   child: !cameraController!.value.isInitialized
@@ -104,19 +116,26 @@ class _RealtimeDetectionState extends State<RealtimeDetection> {
                 ),
               ),
               Text(
-                'Healthy Plant',
-                style: TextStyle(
+                output,
+                style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
                     color: Colors.white),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               RoundedButton(
                   buttonName: "Pesticide Suggetions",
-                  onPressed: () {
-                    showAlertDialog(context);
+                  onPressed: () async {
+                    temp = output.substring(2, 4);
+
+                    List<Map<String, dynamic>> incompleteTasks =
+                        await dbHelper.getPesticide(temp);
+
+                    for (var task in incompleteTasks) {
+                      showAlertDialog(context, task['pesticide']);
+                    }
                   }),
             ],
           ),
@@ -125,10 +144,10 @@ class _RealtimeDetectionState extends State<RealtimeDetection> {
     );
   }
 
-  showAlertDialog(BuildContext context) {
+  showAlertDialog(BuildContext context, String content) {
     // Create button
     Widget okButton = TextButton(
-      child: Text("OK"),
+      child: const Text("OK"),
       onPressed: () {
         Navigator.of(context).pop();
       },
@@ -136,8 +155,8 @@ class _RealtimeDetectionState extends State<RealtimeDetection> {
 
     // Create AlertDialog
     AlertDialog alert = AlertDialog(
-      title: Text("Suggested Pesticide for the Infection"),
-      content: Text('No need for a healthy plant'),
+      title: const Text("Suggested Pesticide for the Infection"),
+      content: Text(content),
       actions: [
         okButton,
       ],
@@ -150,12 +169,5 @@ class _RealtimeDetectionState extends State<RealtimeDetection> {
         return alert;
       },
     );
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    //loadModel();
-    loadCamera(0);
   }
 }

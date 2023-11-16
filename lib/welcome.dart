@@ -15,7 +15,7 @@ class _welcomeScreenState extends State<welcomeScreen> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        BackgroundImage(image: 'assets/images/welcomeBG.jpg'),
+        const BackgroundImage(image: 'assets/images/welcomeBG.jpg'),
         Scaffold(
           backgroundColor: Colors.transparent,
           body: Column(
@@ -24,7 +24,7 @@ class _welcomeScreenState extends State<welcomeScreen> {
                 alignment: Alignment.center,
                 child: Column(
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       height: 75,
                     ),
                     Container(
@@ -38,7 +38,7 @@ class _welcomeScreenState extends State<welcomeScreen> {
                             fontFamily: 'Luicida'),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 100,
                     ),
                     Container(
@@ -46,7 +46,7 @@ class _welcomeScreenState extends State<welcomeScreen> {
                       padding: const EdgeInsets.all(10.0),
                       decoration: BoxDecoration(
                         border:
-                            Border.all(color: Color.fromARGB(255, 15, 167, 9)),
+                            Border.all(color: const Color.fromARGB(255, 15, 167, 9)),
                       ),
                       child: Text(
                         'Welcome',
@@ -58,14 +58,14 @@ class _welcomeScreenState extends State<welcomeScreen> {
                             fontFamily: 'Luicida'),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 150,
                     ),
                     RoundedButton(
                         buttonName: 'Lets Get Started',
                         onPressed: () =>
                             Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => Homepage(),
+                              builder: (context) => const Homepage(),
                             )))
                   ],
                 ),
