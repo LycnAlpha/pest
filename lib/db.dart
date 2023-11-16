@@ -32,7 +32,7 @@ class DatabaseHelper {
             ['Fruit Flies', ' Malathion, Chlorpyrifos']);
         await db.rawInsert(
             'INSERT INTO pests(pestName, pesticide) VALUES (?, ?)',
-            ['Leaf-Hopper Damage', 'Imidacloprid 200gl']);
+            ['Healthy Plant', 'No pesticide is needed']);
       },
     );
   }

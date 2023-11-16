@@ -1,2 +1,2 @@
-0 Leaf-Hopper Damage 
-1 Healthy Leaf
+0 Healthy Plant
+1 Leaf Hopper Damage

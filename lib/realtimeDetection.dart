@@ -96,8 +96,8 @@ class _RealtimeDetectionState extends State<RealtimeDetection> {
             backgroundColor: Colors.green,
             automaticallyImplyLeading: false,
             leading: IconButton(
-                onPressed: () => Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (context) => const Homepage())),
+                onPressed: () => Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => const Homepage())),
                 icon: const Icon(Icons.arrow_back, color: Colors.white)),
           ),
           body: Column(
@@ -128,7 +128,8 @@ class _RealtimeDetectionState extends State<RealtimeDetection> {
               RoundedButton(
                   buttonName: "Pesticide Suggetions",
                   onPressed: () async {
-                    temp = output.substring(2, 4);
+                    temp = output.substring(2);
+                    print(temp);
 
                     List<Map<String, dynamic>> incompleteTasks =
                         await dbHelper.getPesticide(temp);
